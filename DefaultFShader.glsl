@@ -1,6 +1,10 @@
-out vec4 gl_FragColor;
+#version 330 core
+out vec4 fragColor;
+in vec3 vPos;
+uniform vec3 camPos;
 
 void main(void)
 {
-    gl_FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);;
+    fragColor = vec4(1.0f*vPos.x + 1.0f, 1.0f*vPos.y + 1.0f, 1.0f*vPos.z + 1.0f, 1.0f);
+    //fragColor = vec4(5.f*distance(camPos,vPos),5.f*distance(camPos,vPos),5.f*distance(camPos,vPos),1.f);
 }

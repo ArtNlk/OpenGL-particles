@@ -14,10 +14,10 @@ public:
     QMatrix4x4 getMatrix();
 
     float getSpeed();
+    QVector3D getPosition();
 
 public slots:
     void rotate(float dh, float dv);
-    void rotate(QQuaternion rot);
     void move(float dh, float df, float dv);
     void move(QVector3D v);
 
@@ -36,7 +36,9 @@ protected:
     static float nearPlane;
     static float farPlane;
     float speed;
-    QMatrix4x4 projectionMatrix;
+    float hRot;
+    float vRot;
+    QVector3D pos;
 };
 
 #endif // CAMERA_H

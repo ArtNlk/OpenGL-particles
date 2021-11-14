@@ -17,6 +17,7 @@ public:
 
     const GLfloat* particlePositions();
     int particleCount();
+    QVector3D cameraPosition();
 
 public slots:
     void moveForward();
@@ -25,6 +26,8 @@ public slots:
     void moveRight();
     void moveUp();
     void moveDown();
+    void rotateCamera(float dh, float dv);
+    void moveCamera(QVector3D mov);
 
     void setCameraSpeed(float speed);
 

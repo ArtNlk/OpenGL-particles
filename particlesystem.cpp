@@ -4,7 +4,7 @@
 
 #include <stdexcept>
 
-ParticleSystem::ParticleSystem(QObject *parent) : QObject(parent),
+ParticleSystem::ParticleSystem(QObject *parent) : QObject(parent)
 {
 
 }

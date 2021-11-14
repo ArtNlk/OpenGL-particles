@@ -20,6 +20,11 @@ int Scene::particleCount()
     return particleSystem.getParticleCount();
 }
 
+QVector3D Scene::cameraPosition()
+{
+    return sceneCamera.getPosition();
+}
+
 void Scene::moveForward()
 {
     sceneCamera.stepForward();
@@ -48,6 +53,16 @@ void Scene::moveUp()
 void Scene::moveDown()
 {
     sceneCamera.moveDown();
+}
+
+void Scene::rotateCamera(float dh, float dv)
+{
+    sceneCamera.rotate(dh,dv);
+}
+
+void Scene::moveCamera(QVector3D mov)
+{
+    sceneCamera.move(mov);
 }
 
 void Scene::setCameraSpeed(float speed)

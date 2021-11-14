@@ -24,13 +24,19 @@ protected:
     void resizeGL(int width, int height) override;
     void mousePressEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;
+    void keyPressEvent(QKeyEvent *event) override;
+    void wheelEvent(QWheelEvent *event);
 
 private:
     Scene* scene;
     QOpenGLShaderProgram* shaderProgram;
+    float pointSize;
     int projectionMatrixLoc;
+    int camPosLoc;
+    int pointSizeLoc;
     QOpenGLVertexArrayObject sceneVao;
     QOpenGLBuffer sceneVbo;
+    QPointF lastMousePos;
 };
 
 #endif // RENDERWIDGET_H
