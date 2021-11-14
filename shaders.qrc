@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>DefaultVShader.glsl</file>
+        <file>DefaultFShader.glsl</file>
+    </qresource>
+</RCC>

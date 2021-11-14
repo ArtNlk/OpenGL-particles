@@ -17,22 +17,24 @@ public:
 
 public slots:
     void rotate(float dh, float dv);
-    void rotate(QVector3D v);
-    void rotate(QQuaternion v);
-    void setRotation(QQuaternion rotation);
-    void setRotation(QVector3D rotation);
+    void rotate(QQuaternion rot);
     void move(float dh, float df, float dv);
     void move(QVector3D v);
-    void moveTo(QVector3D pos);
 
     void stepForward();
     void stepBackward();
     void strafeLeft();
     void strafeRight();
+    void moveUp();
+    void moveDown();
 
-    void setSpeed(float speed);
+    void setSpeed(float _speed);
 
 protected:
+    static float fov;
+    static float aspectRatio;
+    static float nearPlane;
+    static float farPlane;
     float speed;
     QMatrix4x4 projectionMatrix;
 };

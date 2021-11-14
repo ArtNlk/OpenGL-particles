@@ -26,12 +26,12 @@ public slots:
     void moveUp();
     void moveDown();
 
-    void setCameraSpeed();
+    void setCameraSpeed(float speed);
 
     void addParticle(QVector3D pos);
     void removeParticle(int index);
-    void purgeParticles(int count);
-    void purgeParticles(float percent);
+    //void purgeParticles(int count);
+    //void purgeParticles(float percent);
 
     void step(float dt);
 

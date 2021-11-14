@@ -17,6 +17,7 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets OpenGL REQUIRED)
 
 set(PROJECT_SOURCES
         main.cpp
+        shaders.qrc
         mainwindow.cpp
         scene.cpp
         renderwidget.cpp
