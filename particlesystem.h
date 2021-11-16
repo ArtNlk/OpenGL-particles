@@ -3,6 +3,8 @@
 
 #include <QObject>
 #include <qopengl.h>
+#include <QOpenGLVertexArrayObject>
+#include <QOpenGLBuffer>
 
 class ParticleSystem : public QObject
 {
@@ -18,9 +20,10 @@ public:
 
 
 public slots:
-    void step(float dt);
+    void step(int dtMs);
     void addParticle(QVector3D pos);
     void removeParticle(int index);
+    void draw();
     //void purge(int count);
     //void purge(float percent);
 
@@ -29,6 +32,12 @@ signals:
 
 protected:
     QVector<GLfloat> particles; //XYZ triplets
+
+    QOpenGLVertexArrayObject VAO;
+    QOpenGLBuffer VBO;
+    bool needsUpdate;
+    int currentTime;
+    void glUpdate();
 };
 
 #endif // PARTICLESYSTEM_H

@@ -39,27 +39,29 @@ void RenderWidget::initializeGL()
     pointSizeLoc = shaderProgram->uniformLocation("pointSize");
 
     //Test buffer
-    sceneVao.create();
-    QOpenGLVertexArrayObject::Binder vaoBinder(&sceneVao);
+//    sceneVao.create();
+//    QOpenGLVertexArrayObject::Binder vaoBinder(&sceneVao);
 
-    sceneVbo.create();
-    sceneVbo.bind();
-    sceneVbo.allocate(scene->particlePositions(), scene->particleCount()*3 * sizeof (GLfloat));
+//    sceneVbo.create();
+//    sceneVbo.bind();
+//    sceneVbo.allocate(scene->particlePositions(), scene->particleCount()*3 * sizeof (GLfloat));
 
-    qDebug() << "Particles: " << scene->particleCount();
-    for(int i = 0; i < scene->particleCount(); i++)
-    {
-        qDebug() << "P" << i
-                 << "\tX:" << scene->particlePositions()[i*3+0]
-                 << "Y:" << scene->particlePositions()[i*3+1]
-                 << "Z:" << scene->particlePositions()[i*3+2];
-    }
+//    qDebug() << "Particles: " << scene->particleCount();
+//    for(int i = 0; i < scene->particleCount(); i++)
+//    {
+//        qDebug() << "P" << i
+//                 << "\tX:" << scene->particlePositions()[i*3+0]
+//                 << "Y:" << scene->particlePositions()[i*3+1]
+//                 << "Z:" << scene->particlePositions()[i*3+2];
+//    }
 
-    QOpenGLFunctions *f = QOpenGLContext::currentContext()->functions();
-    f->glEnableVertexAttribArray(0);
-    f->glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,0,nullptr);
+//    QOpenGLFunctions *f = QOpenGLContext::currentContext()->functions();
+//    f->glEnableVertexAttribArray(0);
+//    f->glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,0,nullptr);
 
-    sceneVbo.release();
+//    sceneVbo.release();
+
+
 
     shaderProgram->release();
 }
@@ -75,7 +77,9 @@ void RenderWidget::paintGL()
     shaderProgram->setUniformValue(camPosLoc,scene->cameraPosition());
     shaderProgram->setUniformValue(pointSizeLoc,pointSize);
 
-    glDrawArrays(GL_POINTS,0,scene->particleCount());
+    scene->draw();
+
+    //glDrawArrays(GL_POINTS,0,scene->particleCount());
 
     shaderProgram->release();
 }

@@ -65,6 +65,11 @@ void Scene::moveCamera(QVector3D mov)
     sceneCamera.move(mov);
 }
 
+void Scene::draw()
+{
+    particleSystem.draw();
+}
+
 void Scene::setCameraSpeed(float speed)
 {
     sceneCamera.setSpeed(speed);
@@ -80,7 +85,7 @@ void Scene::removeParticle(int index)
     particleSystem.removeParticle(index);
 }
 
-void Scene::step(float dt)
+void Scene::step(int dtMs)
 {
-    particleSystem.step(dt);
+    particleSystem.step(dtMs);
 }

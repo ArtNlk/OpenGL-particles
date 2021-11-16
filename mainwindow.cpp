@@ -11,6 +11,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     setCentralWidget(glWidget);
 
+    timer.setInterval(10);
+    connect(&timer,&QTimer::timeout,this,&MainWindow::onTimer);
+
     mainScene = new Scene();
     glWidget->setScene(mainScene);
     mainScene->setCameraSpeed(0.1);
@@ -49,10 +52,17 @@ MainWindow::MainWindow(QWidget *parent)
 //            mainScene->addParticle(QVector3D(row/3.0,0,col/3.0));
 //        }
 //    }
+    timer.start();
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::onTimer()
+{
+    mainScene->step(qobject_cast<QTimer*>(QObject::sender())->interval());
+    glWidget->update();
 }
 

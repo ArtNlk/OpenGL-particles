@@ -29,6 +29,8 @@ public slots:
     void rotateCamera(float dh, float dv);
     void moveCamera(QVector3D mov);
 
+    void draw();
+
     void setCameraSpeed(float speed);
 
     void addParticle(QVector3D pos);
@@ -36,7 +38,7 @@ public slots:
     //void purgeParticles(int count);
     //void purgeParticles(float percent);
 
-    void step(float dt);
+    void step(int dtMs);
 
 signals:
 
