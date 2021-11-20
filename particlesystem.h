@@ -1,12 +1,9 @@
 #ifndef PARTICLESYSTEM_H
 #define PARTICLESYSTEM_H
 
-#include <QObject>
-#include <qopengl.h>
-#include <QOpenGLVertexArrayObject>
-#include <QOpenGLBuffer>
+#include "renderableobject.h"
 
-class ParticleSystem : public QObject
+class ParticleSystem : public RenderableObject
 {
     Q_OBJECT
 public:
@@ -23,7 +20,7 @@ public slots:
     void step(int dtMs);
     void addParticle(QVector3D pos);
     void removeParticle(int index);
-    void draw();
+    void draw() override;
     //void purge(int count);
     //void purge(float percent);
 
@@ -33,11 +30,8 @@ signals:
 protected:
     QVector<GLfloat> particles; //XYZ triplets
 
-    QOpenGLVertexArrayObject VAO;
-    QOpenGLBuffer VBO;
-    bool needsUpdate;
     int currentTime;
-    void glUpdate();
+    void glUpdate() override;
 };
 
 #endif // PARTICLESYSTEM_H

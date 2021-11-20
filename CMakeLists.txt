@@ -23,7 +23,8 @@ set(PROJECT_SOURCES
         renderwidget.cpp
         camera.cpp
         particlesystem.cpp
-        geomertyobject.cpp)
+        geomertyobject.cpp
+        renderableobject.cpp)
 
 set(PROJECT_HEADERS
     mainwindow.h
@@ -31,7 +32,8 @@ set(PROJECT_HEADERS
     renderwidget.h
     camera.h
     particlesystem.h
-    geomertyobject.h)
+    geomertyobject.h
+    renderableobject.h)
 
 set(PROJECT_FORMS
     mainwindow.ui)

@@ -9,7 +9,7 @@
 #include <QtMath>
 #include <QMatrix4x4>
 
-ParticleSystem::ParticleSystem(QObject *parent) : QObject(parent)
+ParticleSystem::ParticleSystem(QObject *parent) : RenderableObject(parent)
 {
     needsUpdate = false;
     currentTime = 0;
@@ -47,7 +47,6 @@ void ParticleSystem::setParticleAt(QVector3D particle, int index)
     particles[index*3 + 0] = particle.x();
     particles[index*3 + 1] = particle.y();
     particles[index*3 + 2] = particle.z();
-    needsUpdate = true;
 }
 
 void ParticleSystem::step(int dtMs)
@@ -57,7 +56,7 @@ void ParticleSystem::step(int dtMs)
     for(int i = 0; i < getParticleCount(); i++)
     {
         temp = getParticleAt(i);
-        temp.setY(temp.y()*sin(static_cast<float>(currentTime)/1000.f));
+        temp.setY(sin(static_cast<float>(currentTime)/1000.f));
         setParticleAt(temp,i);
     }
 }
