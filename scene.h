@@ -6,6 +6,7 @@
 
 #include "camera.h"
 #include "particlesystem.h"
+#include "geomertyobject.h"
 
 class Scene : public QObject
 {
@@ -45,6 +46,7 @@ signals:
 protected:
   Camera sceneCamera;
   ParticleSystem particleSystem;
+  QVector<GeomertyObject*> objects;
 };
 
 #endif // SCENE_H
