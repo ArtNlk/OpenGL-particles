@@ -74,10 +74,17 @@ void Scene::moveCamera(QVector3D mov)
     sceneCamera.move(mov);
 }
 
-void Scene::draw()
+void Scene::drawParticles()
 {
     particleSystem.draw();
-    objects[0]->draw();
+}
+
+void Scene::drawObjects()
+{
+    for(int i = 0; i < objects.length(); i++)
+    {
+        objects[i]->draw();
+    }
 }
 
 void Scene::setCameraSpeed(float speed)

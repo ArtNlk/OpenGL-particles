@@ -20,16 +20,19 @@ public:
 
 protected:
     void initializeGL() override;
+    void setupParticleProgram();
+    void setupPhongProgram();
     void paintGL() override;
     void resizeGL(int width, int height) override;
     void mousePressEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;
     void keyPressEvent(QKeyEvent *event) override;
-    void wheelEvent(QWheelEvent *event);
+    void wheelEvent(QWheelEvent *event) override;
 
 private:
     Scene* scene;
-    QOpenGLShaderProgram* shaderProgram;
+    QOpenGLShaderProgram* particleProgram;
+    QOpenGLShaderProgram* phongProgram;
     float pointSize;
     int projectionMatrixLoc;
     int camPosLoc;

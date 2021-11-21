@@ -2,5 +2,6 @@
     <qresource prefix="/">
         <file>DefaultVShader.glsl</file>
         <file>DefaultFShader.glsl</file>
+        <file>PhongShader.glsl</file>
     </qresource>
 </RCC>

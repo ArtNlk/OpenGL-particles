@@ -30,7 +30,8 @@ public slots:
     void rotateCamera(float dh, float dv);
     void moveCamera(QVector3D mov);
 
-    void draw();
+    void drawParticles();
+    void drawObjects();
 
     void setCameraSpeed(float speed);
 

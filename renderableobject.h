@@ -5,6 +5,7 @@
 #include <qopengl.h>
 #include <QOpenGLVertexArrayObject>
 #include <QOpenGLBuffer>
+#include <QOpenGLShaderProgram>
 
 class RenderableObject : public QObject
 {

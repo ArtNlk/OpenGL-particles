@@ -6,7 +6,8 @@
 
 RenderWidget::RenderWidget(QWidget *parent):
     scene(nullptr),
-    shaderProgram(nullptr),
+    particleProgram(nullptr),
+    phongProgram(nullptr),
     pointSize(10.f)
 {
     setFocusPolicy(Qt::StrongFocus);
@@ -26,18 +27,38 @@ void RenderWidget::initializeGL()
 {
     initializeOpenGLFunctions();
     glClearColor(0.25, 0.25, 0.25, 1);
+    setupParticleProgram();
+    setupPhongProgram();
+}
 
-    shaderProgram = new QOpenGLShaderProgram;
-    shaderProgram->addShaderFromSourceFile(QOpenGLShader::Vertex,":/DefaultVShader.glsl");
-    shaderProgram->addShaderFromSourceFile(QOpenGLShader::Fragment,":/DefaultFShader.glsl");
-    shaderProgram->bindAttributeLocation("vertex", 0);
-    shaderProgram->link();
+void RenderWidget::setupParticleProgram()
+{
+    particleProgram = new QOpenGLShaderProgram;
+    particleProgram->addShaderFromSourceFile(QOpenGLShader::Vertex,":/DefaultVShader.glsl");
+    particleProgram->addShaderFromSourceFile(QOpenGLShader::Fragment,":/DefaultFShader.glsl");
+    particleProgram->bindAttributeLocation("vertex", 0);
+    particleProgram->link();
 
-    shaderProgram->bind();
-    projectionMatrixLoc = shaderProgram->uniformLocation("cameraMatrix");
-    camPosLoc = shaderProgram->uniformLocation("camPos");
-    pointSizeLoc = shaderProgram->uniformLocation("pointSize");
-    shaderProgram->release();
+    particleProgram->bind();
+    projectionMatrixLoc = particleProgram->uniformLocation("cameraMatrix");
+    camPosLoc = particleProgram->uniformLocation("camPos");
+    pointSizeLoc = particleProgram->uniformLocation("pointSize");
+    particleProgram->release();
+}
+
+void RenderWidget::setupPhongProgram()
+{
+    phongProgram = new QOpenGLShaderProgram;
+    phongProgram->addShaderFromSourceFile(QOpenGLShader::Vertex,":/DefaultVShader.glsl");
+    phongProgram->addShaderFromSourceFile(QOpenGLShader::Fragment,":/PhongShader.glsl");
+    phongProgram->bindAttributeLocation("vertex", 0);
+    phongProgram->link();
+
+    phongProgram->bind();
+    projectionMatrixLoc = phongProgram->uniformLocation("cameraMatrix");
+    camPosLoc = phongProgram->uniformLocation("camPos");
+    pointSizeLoc = phongProgram->uniformLocation("pointSize");
+    phongProgram->release();
 }
 
 void RenderWidget::paintGL()
@@ -46,16 +67,20 @@ void RenderWidget::paintGL()
     glEnable(GL_PROGRAM_POINT_SIZE);
 
     QOpenGLVertexArrayObject::Binder vaoBinder(&sceneVao);
-    shaderProgram->bind();
-    shaderProgram->setUniformValue(projectionMatrixLoc,scene->cameraMatrix());
-    shaderProgram->setUniformValue(camPosLoc,scene->cameraPosition());
-    shaderProgram->setUniformValue(pointSizeLoc,pointSize);
+    particleProgram->bind();
+    particleProgram->setUniformValue(projectionMatrixLoc,scene->cameraMatrix());
+    particleProgram->setUniformValue(camPosLoc,scene->cameraPosition());
+    particleProgram->setUniformValue(pointSizeLoc,pointSize);
 
-    scene->draw();
+    scene->drawParticles();
+    particleProgram->release();
 
-    //glDrawArrays(GL_POINTS,0,scene->particleCount());
-
-    shaderProgram->release();
+    phongProgram->bind();
+    phongProgram->setUniformValue(projectionMatrixLoc,scene->cameraMatrix());
+    phongProgram->setUniformValue(camPosLoc,scene->cameraPosition());
+    phongProgram->setUniformValue(pointSizeLoc,pointSize);
+    scene->drawObjects();
+    phongProgram->release();
 }
 
 void RenderWidget::resizeGL(int width, int height)
