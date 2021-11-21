@@ -6,8 +6,12 @@ Scene::Scene(QObject *parent) : QObject(parent)
     objects.append(obj);
 
     obj->addVert(QVector3D(0,0,0),QVector3D(0,1,0));
-    obj->addVert(QVector3D(0,0,1),QVector3D(0,1,0));
-    obj->addVert(QVector3D(1,0,1),QVector3D(0,1,0));
+    obj->addVert(QVector3D(0,0,-1),QVector3D(0,1,0));
+    obj->addVert(QVector3D(-1,0,0),QVector3D(0,1,0));
+    obj->addVert(QVector3D(-1,0,-1),QVector3D(0,1,0));
+
+    obj->addTri(0,1,2);
+    obj->addTri(1,3,2);
 }
 
 QMatrix4x4 Scene::cameraMatrix()
@@ -72,7 +76,7 @@ void Scene::moveCamera(QVector3D mov)
 
 void Scene::draw()
 {
-    //particleSystem.draw();
+    particleSystem.draw();
     objects[0]->draw();
 }
 

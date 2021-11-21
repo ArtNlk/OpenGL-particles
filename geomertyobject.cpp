@@ -24,8 +24,15 @@ void GeomertyObject::addVert(QVector3D vert, QVector3D norm)
     verts.append(norm.x());
     verts.append(norm.y());
     verts.append(norm.z());
-    needsUpdate = true;
     emit vertCountChanged(getVertexCount());
+}
+
+void GeomertyObject::addTri(int first, int second, int third)
+{
+    indexes.append(first);
+    indexes.append(second);
+    indexes.append(third);
+    needsUpdate = true;
 }
 
 void GeomertyObject::move(QVector3D movement)
@@ -42,7 +49,8 @@ void GeomertyObject::draw()
 {
     glUpdate();
     QOpenGLVertexArrayObject::Binder vaoBinder(&VAO);
-    glDrawArrays(GL_TRIANGLES,0,this->getVertexCount());
+    //glDrawArrays(GL_TRIANGLES,0,this->getVertexCount());
+    glDrawElements(GL_TRIANGLES,indexes.length(),GL_UNSIGNED_INT,indexes.constData());
 }
 
 void GeomertyObject::glUpdate()
@@ -59,6 +67,8 @@ void GeomertyObject::glUpdate()
     VAO.create();
     QOpenGLVertexArrayObject::Binder vaoBinder(&VAO);
 
+    QOpenGLFunctions *f = QOpenGLContext::currentContext()->functions();
+
     if(VBO.isCreated())
     {
         VBO.destroy();
@@ -66,7 +76,6 @@ void GeomertyObject::glUpdate()
     VBO.create();
     VBO.bind();
     VBO.allocate(verts.constData(),verts.length()*sizeof(GLfloat));
-    QOpenGLFunctions *f = QOpenGLContext::currentContext()->functions();
     f->glEnableVertexAttribArray(0);
     f->glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,6*sizeof(GLfloat),nullptr);
 

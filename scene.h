@@ -46,7 +46,7 @@ signals:
 protected:
   Camera sceneCamera;
   ParticleSystem particleSystem;
-  QVector<GeomertyObject*> objects;
+  QVector<RenderableObject*> objects;
 };
 
 #endif // SCENE_H
