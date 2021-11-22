@@ -13,6 +13,7 @@ class RenderableObject : public QObject
 public:
     RenderableObject(QObject *parent = nullptr);
     virtual void draw() = 0;
+    virtual void draw(QOpenGLShaderProgram* shaderProgram) = 0;
 
 signals:
 

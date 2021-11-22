@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     glWidget = new RenderWidget(this);
 
-    setCentralWidget(glWidget);
+    ui->glLayout->addWidget(glWidget);
 
     timer.setInterval(10);
     connect(&timer,&QTimer::timeout,this,&MainWindow::onTimer);

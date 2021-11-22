@@ -1,8 +1,9 @@
 ﻿#include "renderwidget.h"
 
 #include <QMouseEvent>
-
 #include <QtMath>
+
+#include "gldebug.h"
 
 RenderWidget::RenderWidget(QWidget *parent):
     scene(nullptr),
@@ -37,28 +38,15 @@ void RenderWidget::setupParticleProgram()
     particleProgram->addShaderFromSourceFile(QOpenGLShader::Vertex,":/DefaultVShader.glsl");
     particleProgram->addShaderFromSourceFile(QOpenGLShader::Fragment,":/DefaultFShader.glsl");
     particleProgram->bindAttributeLocation("vertex", 0);
-    particleProgram->link();
-
-    particleProgram->bind();
-    projectionMatrixLoc = particleProgram->uniformLocation("cameraMatrix");
-    camPosLoc = particleProgram->uniformLocation("camPos");
-    pointSizeLoc = particleProgram->uniformLocation("pointSize");
-    particleProgram->release();
 }
 
 void RenderWidget::setupPhongProgram()
 {
     phongProgram = new QOpenGLShaderProgram;
-    phongProgram->addShaderFromSourceFile(QOpenGLShader::Vertex,":/DefaultVShader.glsl");
+    phongProgram->addShaderFromSourceFile(QOpenGLShader::Vertex,":/PhongVertexShader.glsl");
     phongProgram->addShaderFromSourceFile(QOpenGLShader::Fragment,":/PhongShader.glsl");
     phongProgram->bindAttributeLocation("vertex", 0);
-    phongProgram->link();
-
-    phongProgram->bind();
-    projectionMatrixLoc = phongProgram->uniformLocation("cameraMatrix");
-    camPosLoc = phongProgram->uniformLocation("camPos");
-    pointSizeLoc = phongProgram->uniformLocation("pointSize");
-    phongProgram->release();
+    phongProgram->bindAttributeLocation("vertexNormal", 1);
 }
 
 void RenderWidget::paintGL()
@@ -66,20 +54,22 @@ void RenderWidget::paintGL()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_PROGRAM_POINT_SIZE);
 
-    QOpenGLVertexArrayObject::Binder vaoBinder(&sceneVao);
     particleProgram->bind();
-    particleProgram->setUniformValue(projectionMatrixLoc,scene->cameraMatrix());
-    particleProgram->setUniformValue(camPosLoc,scene->cameraPosition());
-    particleProgram->setUniformValue(pointSizeLoc,pointSize);
+    particleProgram->setUniformValue("cameraMatrix",scene->cameraMatrix());
+    particleProgram->setUniformValue("camPos",scene->cameraPosition());
+    particleProgram->setUniformValue("pointSize",pointSize);
 
-    scene->drawParticles();
+    scene->drawParticles(particleProgram);
     particleProgram->release();
 
     phongProgram->bind();
-    phongProgram->setUniformValue(projectionMatrixLoc,scene->cameraMatrix());
-    phongProgram->setUniformValue(camPosLoc,scene->cameraPosition());
-    phongProgram->setUniformValue(pointSizeLoc,pointSize);
-    scene->drawObjects();
+    phongProgram->setUniformValue("cameraMatrix",scene->cameraMatrix());
+    phongProgram->setUniformValue("camPos",scene->cameraPosition());
+    phongProgram->setUniformValue("pointSize",pointSize);
+    phongProgram->setUniformValue("ambientLight",scene->getAmbientLight());
+    phongProgram->setUniformValue("sunColor",scene->getSunColor());
+    phongProgram->setUniformValue("sunDir",scene->getSunDir());
+    scene->drawObjects(phongProgram);
     phongProgram->release();
 }
 

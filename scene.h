@@ -3,10 +3,13 @@
 
 #include <QObject>
 #include <QMatrix4x4>
+#include <QColor>
 
 #include "camera.h"
 #include "particlesystem.h"
 #include "geomertyobject.h"
+#include "light.h"
+#include "directionallight.h"
 
 class Scene : public QObject
 {
@@ -20,6 +23,11 @@ public:
     int particleCount();
     QVector3D cameraPosition();
 
+    QColor getAmbientLight();
+
+    QColor getSunColor();
+    QVector3D getSunDir();
+
 public slots:
     void moveForward();
     void moveBackward();
@@ -30,15 +38,18 @@ public slots:
     void rotateCamera(float dh, float dv);
     void moveCamera(QVector3D mov);
 
-    void drawParticles();
-    void drawObjects();
+    void drawParticles(QOpenGLShaderProgram* shaderProgram);
+    void drawObjects(QOpenGLShaderProgram* shaderProgram);
 
     void setCameraSpeed(float speed);
 
     void addParticle(QVector3D pos);
     void removeParticle(int index);
-    //void purgeParticles(int count);
-    //void purgeParticles(float percent);
+
+    void setAmbientLight(QColor lightColor);
+
+    void setSunColor(QColor color);
+    void setSunDir(QVector3D dir);
 
     void step(int dtMs);
 
@@ -48,6 +59,8 @@ protected:
   Camera sceneCamera;
   ParticleSystem particleSystem;
   QVector<RenderableObject*> objects;
+  Light ambientLight;
+  DirectionalLight sunLight;
 };
 
 #endif // SCENE_H

@@ -7,7 +7,7 @@
 
 GeomertyObject::GeomertyObject(QObject *parent) : RenderableObject(parent)
 {
-
+    objectColor = QColor(255,128,128);
 }
 
 int GeomertyObject::getVertexCount()
@@ -45,12 +45,30 @@ void GeomertyObject::move(QVector3D movement)
     }
 }
 
+void GeomertyObject::setColor(QColor color)
+{
+    objectColor = color;
+}
+
+QColor GeomertyObject::getColor()
+{
+    return objectColor;
+}
+
 void GeomertyObject::draw()
 {
     glUpdate();
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_BACK);
     QOpenGLVertexArrayObject::Binder vaoBinder(&VAO);
     //glDrawArrays(GL_TRIANGLES,0,this->getVertexCount());
     glDrawElements(GL_TRIANGLES,indexes.length(),GL_UNSIGNED_INT,indexes.constData());
+}
+
+void GeomertyObject::draw(QOpenGLShaderProgram *shaderProgram)
+{
+    shaderProgram->setUniformValue("objectColor",objectColor);
+    draw();
 }
 
 void GeomertyObject::glUpdate()
@@ -78,6 +96,8 @@ void GeomertyObject::glUpdate()
     VBO.allocate(verts.constData(),verts.length()*sizeof(GLfloat));
     f->glEnableVertexAttribArray(0);
     f->glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,6*sizeof(GLfloat),nullptr);
+    f->glEnableVertexAttribArray(1);
+    f->glVertexAttribPointer(1,3,GL_FLOAT,GL_FALSE,6*sizeof(GLfloat),reinterpret_cast<void*>(3*sizeof(GLfloat)));
 
     VBO.release();
 }

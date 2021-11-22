@@ -37,8 +37,6 @@ private:
     int projectionMatrixLoc;
     int camPosLoc;
     int pointSizeLoc;
-    QOpenGLVertexArrayObject sceneVao;
-    QOpenGLBuffer sceneVbo;
     QPointF lastMousePos;
 };
 

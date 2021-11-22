@@ -86,8 +86,14 @@ void ParticleSystem::removeParticle(int index)
 void ParticleSystem::draw()
 {
     glUpdate();
+    glClear(GL_CULL_FACE);
     QOpenGLVertexArrayObject::Binder vaoBinder(&VAO);
     glDrawArrays(GL_POINTS,0,this->getParticleCount());
+}
+
+void ParticleSystem::draw(QOpenGLShaderProgram *shaderProgram)
+{
+    draw();
 }
 
 void ParticleSystem::glUpdate()

@@ -15,6 +15,18 @@ find_package(OpenGL REQUIRED)
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets OpenGL REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets OpenGL REQUIRED)
 
+set(PROJECT_HEADERS
+    mainwindow.h
+    scene.h
+    renderwidget.h
+    camera.h
+    particlesystem.h
+    geomertyobject.h
+    renderableobject.h
+    light.h
+    directionallight.h
+    gldebug.h)
+
 set(PROJECT_SOURCES
         main.cpp
         shaders.qrc
@@ -24,16 +36,10 @@ set(PROJECT_SOURCES
         camera.cpp
         particlesystem.cpp
         geomertyobject.cpp
-        renderableobject.cpp)
-
-set(PROJECT_HEADERS
-    mainwindow.h
-    scene.h
-    renderwidget.h
-    camera.h
-    particlesystem.h
-    geomertyobject.h
-    renderableobject.h)
+        renderableobject.cpp
+        light.cpp
+        directionallight.cpp
+        gldebug.cpp)
 
 set(PROJECT_FORMS
     mainwindow.ui)

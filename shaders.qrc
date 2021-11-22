@@ -3,5 +3,6 @@
         <file>DefaultVShader.glsl</file>
         <file>DefaultFShader.glsl</file>
         <file>PhongShader.glsl</file>
+        <file>PhongVertexShader.glsl</file>
     </qresource>
 </RCC>

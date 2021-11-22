@@ -21,6 +21,7 @@ public slots:
     void addParticle(QVector3D pos);
     void removeParticle(int index);
     void draw() override;
+    void draw(QOpenGLShaderProgram *shaderProgram) override;
     //void purge(int count);
     //void purge(float percent);
 
