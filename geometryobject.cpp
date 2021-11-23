@@ -1,21 +1,21 @@
-#include "geomertyobject.h"
+#include "geometryobject.h"
 
 #include <QOpenGLFunctions>
 #include <QDebug>
 #include <QtMath>
 #include <QMatrix4x4>
 
-GeomertyObject::GeomertyObject(QObject *parent) : RenderableObject(parent)
+GeometryObject::GeometryObject(QObject *parent) : RenderableObject(parent)
 {
     objectColor = QColor(255,128,128);
 }
 
-int GeomertyObject::getVertexCount()
+int GeometryObject::getVertexCount()
 {
     return verts.length()/6;
 }
 
-void GeomertyObject::addVert(QVector3D vert, QVector3D norm)
+void GeometryObject::addVert(QVector3D vert, QVector3D norm)
 {
     verts.append(vert.x());
     verts.append(vert.y());
@@ -27,7 +27,7 @@ void GeomertyObject::addVert(QVector3D vert, QVector3D norm)
     emit vertCountChanged(getVertexCount());
 }
 
-void GeomertyObject::addTri(int first, int second, int third)
+void GeometryObject::addTri(int first, int second, int third)
 {
     indexes.append(first);
     indexes.append(second);
@@ -35,7 +35,7 @@ void GeomertyObject::addTri(int first, int second, int third)
     needsUpdate = true;
 }
 
-void GeomertyObject::move(QVector3D movement)
+void GeometryObject::move(QVector3D movement)
 {
     for(int i = 0; i < getVertexCount(); i++)
     {
@@ -43,19 +43,47 @@ void GeomertyObject::move(QVector3D movement)
         verts[i*6 + 1] = movement.y();
         verts[i*6 + 2] = movement.z();
     }
+    position = movement;
 }
 
-void GeomertyObject::setColor(QColor color)
+void GeometryObject::rotate(QVector3D rotation)
+{
+    QVector3D v;
+    QVector3D n;
+    QMatrix4x4 m;
+    m.setToIdentity();
+    m.rotate(rotation.x(),1,0,0);
+    m.rotate(rotation.y(),0,1,0);
+    m.rotate(rotation.z(),0,0,1);
+    for(int i = 0; i < getVertexCount(); i++)
+    {
+        v = QVector3D(verts[i*6 + 0],verts[i*6 + 1],verts[i*6 + 2]);
+        n = QVector3D(verts[i*6 + 3],verts[i*6 + 4],verts[i*6 + 5]) - v - position;
+        v -= position;
+        v = m*v;
+        n = m*n;
+        v += position;
+        n += position + v;
+        verts[i*6 + 0] = v.x();
+        verts[i*6 + 1] = v.y();
+        verts[i*6 + 2] = v.z();
+        verts[i*6 + 3] = n.x();
+        verts[i*6 + 4] = n.y();
+        verts[i*6 + 5] = n.z();
+    }
+}
+
+void GeometryObject::setColor(QColor color)
 {
     objectColor = color;
 }
 
-QColor GeomertyObject::getColor()
+QColor GeometryObject::getColor()
 {
     return objectColor;
 }
 
-void GeomertyObject::draw()
+void GeometryObject::draw()
 {
     glUpdate();
     glEnable(GL_CULL_FACE);
@@ -65,13 +93,13 @@ void GeomertyObject::draw()
     glDrawElements(GL_TRIANGLES,indexes.length(),GL_UNSIGNED_INT,indexes.constData());
 }
 
-void GeomertyObject::draw(QOpenGLShaderProgram *shaderProgram)
+void GeometryObject::draw(QOpenGLShaderProgram *shaderProgram)
 {
     shaderProgram->setUniformValue("objectColor",objectColor);
     draw();
 }
 
-void GeomertyObject::glUpdate()
+void GeometryObject::glUpdate()
 {
     if(!needsUpdate)
     {

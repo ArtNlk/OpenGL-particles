@@ -21,11 +21,12 @@ set(PROJECT_HEADERS
     renderwidget.h
     camera.h
     particlesystem.h
-    geomertyobject.h
+    geometryobject.h
     renderableobject.h
     light.h
     directionallight.h
-    gldebug.h)
+    gldebug.h
+    testbox.h)
 
 set(PROJECT_SOURCES
         main.cpp
@@ -35,11 +36,12 @@ set(PROJECT_SOURCES
         renderwidget.cpp
         camera.cpp
         particlesystem.cpp
-        geomertyobject.cpp
+        geometryobject.cpp
         renderableobject.cpp
         light.cpp
         directionallight.cpp
-        gldebug.cpp)
+        gldebug.cpp
+        testbox.cpp)
 
 set(PROJECT_FORMS
     mainwindow.ui)

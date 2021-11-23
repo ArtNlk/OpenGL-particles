@@ -7,7 +7,7 @@
 
 #include "camera.h"
 #include "particlesystem.h"
-#include "geomertyobject.h"
+#include "geometryobject.h"
 #include "light.h"
 #include "directionallight.h"
 
@@ -58,7 +58,7 @@ signals:
 protected:
   Camera sceneCamera;
   ParticleSystem particleSystem;
-  QVector<RenderableObject*> objects;
+  QVector<GeometryObject*> objects;
   Light ambientLight;
   DirectionalLight sunLight;
 };

@@ -2,7 +2,7 @@
 
 Scene::Scene(QObject *parent) : QObject(parent)
 {
-    GeomertyObject* obj = new GeomertyObject();
+    GeometryObject* obj = new GeometryObject();
     objects.append(obj);
 
     obj->addVert(QVector3D(1,0,1),QVector3D(0,1,0));
@@ -147,4 +147,5 @@ void Scene::setSunDir(QVector3D dir)
 void Scene::step(int dtMs)
 {
     particleSystem.step(dtMs);
+    objects[0]->rotate(QVector3D(0.1,0.2,0.3));
 }
