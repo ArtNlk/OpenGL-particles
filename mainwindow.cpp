@@ -66,3 +66,27 @@ void MainWindow::onTimer()
     glWidget->update();
 }
 
+
+void MainWindow::on_sunlightDirXSlider_sliderMoved(int position)
+{
+    QVector3D currentSunDir = mainScene->getSunDir();
+    currentSunDir.setX(position);
+    mainScene->setSunDir(currentSunDir);
+}
+
+
+void MainWindow::on_sunlightDirYSlider_sliderMoved(int position)
+{
+    QVector3D currentSunDir = mainScene->getSunDir();
+    currentSunDir.setY(position);
+    mainScene->setSunDir(currentSunDir);
+}
+
+
+void MainWindow::on_sunlightDirZSlider_sliderMoved(int position)
+{
+    QVector3D currentSunDir = mainScene->getSunDir();
+    currentSunDir.setZ(position);
+    mainScene->setSunDir(currentSunDir);
+}
+

@@ -21,6 +21,13 @@ public:
 public slots:
     void onTimer();
 
+private slots:
+    void on_sunlightDirXSlider_sliderMoved(int position);
+
+    void on_sunlightDirYSlider_sliderMoved(int position);
+
+    void on_sunlightDirZSlider_sliderMoved(int position);
+
 private:
     Ui::MainWindow *ui;
 
