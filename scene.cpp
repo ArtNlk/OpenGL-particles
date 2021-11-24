@@ -1,5 +1,7 @@
 #include "scene.h"
 
+#include <QDebug>
+
 Scene::Scene(QObject *parent) : QObject(parent)
 {
     GeometryObject* obj = new GeometryObject();
@@ -21,6 +23,7 @@ Scene::Scene(QObject *parent) : QObject(parent)
     obj->addTri(0,2,6);
     obj->addTri(6,4,0);
 
+    objects.append(new TestBox(1.5));
     ambientLight.setIntensity(0.1);
     sunLight.setIntensity(0.3);
     sunLight.setDirection(QVector3D(-45,45,0));
@@ -129,7 +132,7 @@ void Scene::removeParticle(int index)
     particleSystem.removeParticle(index);
 }
 
-void Scene::setAmbientLight(QColor lightColor)
+void Scene::setAmbientLightColor(QColor lightColor)
 {
     ambientLight.setColor(lightColor);
 }

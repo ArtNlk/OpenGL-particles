@@ -10,6 +10,7 @@
 #include "geometryobject.h"
 #include "light.h"
 #include "directionallight.h"
+#include "testbox.h"
 
 class Scene : public QObject
 {
@@ -46,7 +47,7 @@ public slots:
     void addParticle(QVector3D pos);
     void removeParticle(int index);
 
-    void setAmbientLight(QColor lightColor);
+    void setAmbientLightColor(QColor lightColor);
 
     void setSunColor(QColor color);
     void setSunDir(QVector3D dir);

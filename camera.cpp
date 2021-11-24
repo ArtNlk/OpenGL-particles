@@ -65,7 +65,6 @@ void Camera::stepForward()
     t.setToIdentity();
     t.rotate(-hRot,0,1,0);
     t.rotate(-vRot,1,0,0);
-    qDebug() << t * QVector3D(0,0,-speed) << " " << vRot << " " << hRot;
     pos += t*QVector3D(0,0,-speed);
 
 }
@@ -76,7 +75,6 @@ void Camera::stepBackward()
     t.setToIdentity();
     t.rotate(-hRot,0,1,0);
     t.rotate(-vRot,1,0,0);
-    qDebug() << t * QVector3D(0,0,speed);
     pos += t*QVector3D(0,0,speed);
 }
 
@@ -85,7 +83,6 @@ void Camera::strafeLeft()
     QMatrix4x4 t;
     t.setToIdentity();
     t.rotate(-hRot,0,1,0);
-    qDebug() << t * QVector3D(-speed,0,0);
     pos += t*QVector3D(-speed,0,0);
 }
 
@@ -95,7 +92,6 @@ void Camera::strafeRight()
     t.setToIdentity();
     t.rotate(-hRot,0,1,0);
     t.rotate(-vRot,1,0,0);
-    qDebug() << t * QVector3D(speed,0,0);
     pos += t*QVector3D(speed,0,0);
 }
 

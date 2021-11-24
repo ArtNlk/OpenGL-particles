@@ -34,5 +34,7 @@ private:
     RenderWidget* glWidget;
     Scene* mainScene;
     QTimer timer;
+
+    void updateSunDir();
 };
 #endif // MAINWINDOW_H

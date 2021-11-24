@@ -13,16 +13,16 @@ public:
     int getVertexCount();
 
 public slots:
-    void addVert(QVector3D vert, QVector3D norm);
-    void addTri(int first, int second, int third);
-    void move(QVector3D movement);
-    void rotate(QVector3D rotation);
-    void setColor(QColor color);
+    virtual void addVert(QVector3D vert, QVector3D norm);
+    virtual void addTri(int first, int second, int third);
+    virtual void move(QVector3D movement);
+    virtual void rotate(QVector3D rotation);
+    virtual void setColor(QColor color);
     QColor getColor();
     //void rotate(float angle,QVector3D axis);
     //void transform(QMatrix4x4& transformMatrix);
-    void draw() override;
-    void draw(QOpenGLShaderProgram *shaderProgram) override;
+    virtual void draw() override;
+    virtual void draw(QOpenGLShaderProgram *shaderProgram) override;
 
 signals:
     void vertCountChanged(int vertCount);

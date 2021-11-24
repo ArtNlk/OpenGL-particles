@@ -41,24 +41,29 @@ void MainWindow::onTimer()
 
 void MainWindow::on_sunlightDirXSlider_sliderMoved(int position)
 {
-    QVector3D currentSunDir = mainScene->getSunDir();
-    currentSunDir.setX(position);
-    mainScene->setSunDir(currentSunDir);
+    updateSunDir();
 }
 
 
 void MainWindow::on_sunlightDirYSlider_sliderMoved(int position)
 {
-    QVector3D currentSunDir = mainScene->getSunDir();
-    currentSunDir.setY(position);
-    mainScene->setSunDir(currentSunDir);
+    updateSunDir();
 }
 
 
 void MainWindow::on_sunlightDirZSlider_sliderMoved(int position)
 {
-    QVector3D currentSunDir = mainScene->getSunDir();
-    currentSunDir.setZ(position);
-    mainScene->setSunDir(currentSunDir);
+    updateSunDir();
+}
+
+void MainWindow::updateSunDir()
+{
+    QVector3D newDir = QVector3D(0,0,-1);
+    QMatrix4x4 m;
+    m.setToIdentity();
+    m.rotate(ui->sunlightDirXSlider->value(),1,0,0);
+    m.rotate(ui->sunlightDirYSlider->value(),0,1,0);
+    m.rotate(ui->sunlightDirZSlider->value(),0,0,1);
+    mainScene->setSunDir(newDir*m);
 }
 
