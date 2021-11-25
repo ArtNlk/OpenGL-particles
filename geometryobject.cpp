@@ -39,11 +39,11 @@ void GeometryObject::move(QVector3D movement)
 {
     for(int i = 0; i < getVertexCount(); i++)
     {
-        verts[i*6 + 0] = movement.x();
-        verts[i*6 + 1] = movement.y();
-        verts[i*6 + 2] = movement.z();
+        verts[i*6 + 0] += movement.x();
+        verts[i*6 + 1] += movement.y();
+        verts[i*6 + 2] += movement.z();
     }
-    position = movement;
+    position += movement;
 }
 
 void GeometryObject::rotate(QVector3D rotation)

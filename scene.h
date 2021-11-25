@@ -11,6 +11,7 @@
 #include "light.h"
 #include "directionallight.h"
 #include "testbox.h"
+#include "plane.h"
 
 class Scene : public QObject
 {

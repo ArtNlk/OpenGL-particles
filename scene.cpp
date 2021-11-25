@@ -4,26 +4,11 @@
 
 Scene::Scene(QObject *parent) : QObject(parent)
 {
-    GeometryObject* obj = new GeometryObject();
-    objects.append(obj);
-
-    obj->addVert(QVector3D(1,0,1),QVector3D(0,1,0));
-    obj->addVert(QVector3D(1,0,-1),QVector3D(0,1,0));
-    obj->addVert(QVector3D(-1,0,1),QVector3D(0,1,0));
-    obj->addVert(QVector3D(-1,0,-1),QVector3D(0,1,0));
-
-    obj->addVert(QVector3D(1,-1,1),QVector3D(1,0,1));
-    obj->addVert(QVector3D(1,-1,-1),QVector3D(1,0,0));
-    obj->addVert(QVector3D(-1,-1,1),QVector3D(0,0,1));
-
-    obj->addTri(0,1,2);
-    obj->addTri(1,3,2);
-    obj->addTri(4,1,0);
-    obj->addTri(4,5,1);
-    obj->addTri(0,2,6);
-    obj->addTri(6,4,0);
 
     objects.append(new TestBox(1.5));
+    objects.append(new Plane(10));
+    objects[0]->move(QVector3D(0,1,0));
+    objects[1]->setColor(QColor(93, 201, 111));
     ambientLight.setIntensity(0.1);
     sunLight.setIntensity(0.3);
     sunLight.setDirection(QVector3D(-45,45,0));

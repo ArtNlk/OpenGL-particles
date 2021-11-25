@@ -26,7 +26,8 @@ set(PROJECT_HEADERS
     light.h
     directionallight.h
     gldebug.h
-    testbox.h)
+    testbox.h
+    plane.h)
 
 set(PROJECT_SOURCES
         main.cpp
@@ -41,7 +42,8 @@ set(PROJECT_SOURCES
         light.cpp
         directionallight.cpp
         gldebug.cpp
-        testbox.cpp)
+        testbox.cpp
+        plane.cpp)
 
 set(PROJECT_FORMS
     mainwindow.ui)
