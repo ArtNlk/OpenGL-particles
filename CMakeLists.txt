@@ -50,4 +50,7 @@ set(PROJECT_FORMS
 
 add_executable(OpenGL-particles ${PROJECT_HEADERS} ${PROJECT_SOURCES} ${PROJECT_FORMS})
 
+add_subdirectory(FlipSolver)
+target_include_directories(OpenGL-particles PUBLIC FlipSolver)
+
 target_link_libraries(OpenGL-particles PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::OpenGL ${OPENGL_LIBRARIES})
