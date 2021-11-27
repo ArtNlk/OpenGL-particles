@@ -1,0 +1,3 @@
+[submodule "FlipSolver"]
+	path = FlipSolver
+	url = https://github.com/ArtNlk/FlipSolver
